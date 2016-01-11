@@ -18,12 +18,19 @@ import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.xyzreader.R;
 import com.example.xyzreader.data.ArticleLoader;
 import com.example.xyzreader.data.ItemsContract;
 import com.example.xyzreader.data.UpdaterService;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.TimerTask;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 
 /**
  * An activity representing a list of Articles. This activity has different presentations for
@@ -37,6 +44,10 @@ public class ArticleListActivity extends ActionBarActivity implements
     private Toolbar mToolbar;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
+    private ImageView mFAB;
+    private int mTextPostion = 0;
+    private static int mWordBuffer = 80;//number of words we will display at a time
+    private static int mMaxChars = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +57,7 @@ public class ArticleListActivity extends ActionBarActivity implements
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
         final View toolbarContainerView = findViewById(R.id.toolbar_container);
+        mFAB = (ImageView) findViewById(R.id.add_to_lib_fab);
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
 
@@ -55,6 +67,35 @@ public class ArticleListActivity extends ActionBarActivity implements
         if (savedInstanceState == null) {
             refresh();
         }
+
+       /* mFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO Add news clip to lib
+            }
+        });*/
+
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    while(true) {
+                        sleep(80000);
+                        mTextPostion += mWordBuffer;
+                        for(int i = 0; i < mRecyclerView.getChildCount();i++){
+                            View v = mRecyclerView.getChildAt(i);
+                            v.findViewById(R.id.article_body).setVisibility(View.INVISIBLE);
+                        }
+                        if(mTextPostion > mMaxChars)
+                            mTextPostion = 0;
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        thread.start();
     }
 
     private void refresh() {
@@ -153,6 +194,11 @@ public class ArticleListActivity extends ActionBarActivity implements
                     mCursor.getString(ArticleLoader.Query.THUMB_URL),
                     ImageLoaderHelper.getInstance(ArticleListActivity.this).getImageLoader());
             holder.thumbnailView.setAspectRatio(mCursor.getFloat(ArticleLoader.Query.ASPECT_RATIO));
+
+
+            String bodytext = mCursor.getString(ArticleLoader.Query.BODY);
+            mMaxChars = bodytext.length();
+            holder.bodyView.setText(bodytext.substring(mTextPostion,mTextPostion + mWordBuffer));
         }
 
         @Override
@@ -165,12 +211,14 @@ public class ArticleListActivity extends ActionBarActivity implements
         public DynamicHeightNetworkImageView thumbnailView;
         public TextView titleView;
         public TextView subtitleView;
+        public TextView bodyView;
 
         public ViewHolder(View view) {
             super(view);
             thumbnailView = (DynamicHeightNetworkImageView) view.findViewById(R.id.thumbnail);
             titleView = (TextView) view.findViewById(R.id.article_title);
             subtitleView = (TextView) view.findViewById(R.id.article_subtitle);
+            bodyView = (TextView) view.findViewById(R.id.article_body);
         }
     }
 }

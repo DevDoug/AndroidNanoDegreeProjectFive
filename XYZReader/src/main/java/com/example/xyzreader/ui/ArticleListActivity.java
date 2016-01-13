@@ -44,16 +44,22 @@ import java.util.logging.LogRecord;
 public class ArticleListActivity extends ActionBarActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
+    private static int mFadeSleepTime = 8000;
+    private static int mWordBuffer = 200;//number of words we will display at a time
+    private static int mMaxChars = 0;
+
+
     private Toolbar mToolbar;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
     private ImageView mFAB;
     private int mTextPostion = 0;
-    private static int mWordBuffer = 80;//number of words we will display at a time
-    private static int mMaxChars = 0;
     Animation fadeIn = new AlphaAnimation(0.0f,1.0f);
     Animation fadeOut = new AlphaAnimation(1.0f,0.0f);
     boolean showDescription = true;
+    Adapter mAdapter;
+    String mbodyText;
+    boolean mEndsInSpace = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +71,34 @@ public class ArticleListActivity extends ActionBarActivity implements
         final View toolbarContainerView = findViewById(R.id.toolbar_container);
         mFAB = (ImageView) findViewById(R.id.add_to_lib_fab);
         fadeIn.setDuration(2000);
-        fadeOut.setDuration(2000);
+        fadeOut.setDuration(1000);
+
+        fadeOut.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                for (int i = 0; i < mRecyclerView.getChildCount(); i++) {
+                    final int index = i;
+                    View v = mRecyclerView.getChildAt(i);
+                    v.findViewById(R.id.article_body).startAnimation(fadeIn);
+                    mRecyclerView.invalidate();
+                    ArticleListActivity.this.runOnUiThread(new Runnable(){
+                        public void run(){
+                            mAdapter.notifyItemChanged(index);
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
 
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
@@ -77,7 +110,7 @@ public class ArticleListActivity extends ActionBarActivity implements
             refresh();
         }
 
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerView.setItemAnimator(null);
 
 
        /* mFAB.setOnClickListener(new View.OnClickListener() {
@@ -92,16 +125,30 @@ public class ArticleListActivity extends ActionBarActivity implements
             public void run() {
                 try {
                     while(true) {
-                        sleep(10000);
+                        sleep(mFadeSleepTime);
                         mTextPostion += mWordBuffer;
+
+                        while(mEndsInSpace) {
+                            if(mbodyText.charAt(mTextPostion) != ' '){
+                                mTextPostion += 1;
+                            }else {
+                                mEndsInSpace = false;
+                            }
+                        }
+
                         if(mTextPostion > mMaxChars)
                             mTextPostion = 0;
 
                         ArticleListActivity.this.runOnUiThread(new Runnable(){
                             public void run(){
-                                mRecyclerView.invalidate();
+                                for (int i = 0; i < mRecyclerView.getChildCount(); i++) {
+                                    View v = mRecyclerView.getChildAt(i);
+                                    v.findViewById(R.id.article_body).startAnimation(fadeOut);
+                                }
                             }
                         });
+
+                        mEndsInSpace = true;
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -114,26 +161,6 @@ public class ArticleListActivity extends ActionBarActivity implements
 
     private void refresh() {
         startService(new Intent(this, UpdaterService.class));
-    }
-
-    private void toggleFade(){
-        ArticleListActivity.this.runOnUiThread(new Runnable(){
-            public void run() {
-                //Here your code that runs on UI Threads
-                for (int i = 0; i < mRecyclerView.getChildCount(); i++) {
-                    View v = mRecyclerView.getChildAt(i);
-                    if(showDescription){
-                        v.findViewById(R.id.article_body).startAnimation(fadeOut);
-                        v.findViewById(R.id.article_body).setVisibility(View.INVISIBLE);
-                        showDescription = false;
-                    } else {
-                        v.findViewById(R.id.article_body).startAnimation(fadeIn);
-                        v.findViewById(R.id.article_body).setVisibility(View.VISIBLE);
-                        showDescription = true;
-                    }
-                }
-            }
-        });
     }
 
     @Override
@@ -172,9 +199,9 @@ public class ArticleListActivity extends ActionBarActivity implements
 
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
-        Adapter adapter = new Adapter(cursor);
-        adapter.setHasStableIds(true);
-        mRecyclerView.setAdapter(adapter);
+        mAdapter = new Adapter(cursor);
+        mAdapter.setHasStableIds(true);
+        mRecyclerView.setAdapter(mAdapter);
         int columnCount = getResources().getInteger(R.integer.list_column_count);
         StaggeredGridLayoutManager sglm =
                 new StaggeredGridLayoutManager(columnCount, StaggeredGridLayoutManager.VERTICAL);
@@ -230,9 +257,9 @@ public class ArticleListActivity extends ActionBarActivity implements
             holder.thumbnailView.setAspectRatio(mCursor.getFloat(ArticleLoader.Query.ASPECT_RATIO));
 
 
-            String bodytext = mCursor.getString(ArticleLoader.Query.BODY);
-            mMaxChars = bodytext.length();
-            holder.bodyView.setText(bodytext.substring(mTextPostion,mTextPostion + mWordBuffer));
+            mbodyText = mCursor.getString(ArticleLoader.Query.BODY);
+            mMaxChars = mbodyText.length();
+            holder.bodyView.setText(mbodyText.substring(mTextPostion,mTextPostion + mWordBuffer));
         }
 
         @Override

@@ -10,6 +10,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
@@ -18,6 +19,8 @@ import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -48,6 +51,9 @@ public class ArticleListActivity extends ActionBarActivity implements
     private int mTextPostion = 0;
     private static int mWordBuffer = 80;//number of words we will display at a time
     private static int mMaxChars = 0;
+    Animation fadeIn = new AlphaAnimation(0.0f,1.0f);
+    Animation fadeOut = new AlphaAnimation(1.0f,0.0f);
+    boolean showDescription = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +64,9 @@ public class ArticleListActivity extends ActionBarActivity implements
 
         final View toolbarContainerView = findViewById(R.id.toolbar_container);
         mFAB = (ImageView) findViewById(R.id.add_to_lib_fab);
+        fadeIn.setDuration(2000);
+        fadeOut.setDuration(2000);
+
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
 
@@ -67,6 +76,9 @@ public class ArticleListActivity extends ActionBarActivity implements
         if (savedInstanceState == null) {
             refresh();
         }
+
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
 
        /* mFAB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,14 +92,16 @@ public class ArticleListActivity extends ActionBarActivity implements
             public void run() {
                 try {
                     while(true) {
-                        sleep(80000);
+                        sleep(10000);
                         mTextPostion += mWordBuffer;
-                        for(int i = 0; i < mRecyclerView.getChildCount();i++){
-                            View v = mRecyclerView.getChildAt(i);
-                            v.findViewById(R.id.article_body).setVisibility(View.INVISIBLE);
-                        }
                         if(mTextPostion > mMaxChars)
                             mTextPostion = 0;
+
+                        ArticleListActivity.this.runOnUiThread(new Runnable(){
+                            public void run(){
+                                mRecyclerView.invalidate();
+                            }
+                        });
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -100,6 +114,26 @@ public class ArticleListActivity extends ActionBarActivity implements
 
     private void refresh() {
         startService(new Intent(this, UpdaterService.class));
+    }
+
+    private void toggleFade(){
+        ArticleListActivity.this.runOnUiThread(new Runnable(){
+            public void run() {
+                //Here your code that runs on UI Threads
+                for (int i = 0; i < mRecyclerView.getChildCount(); i++) {
+                    View v = mRecyclerView.getChildAt(i);
+                    if(showDescription){
+                        v.findViewById(R.id.article_body).startAnimation(fadeOut);
+                        v.findViewById(R.id.article_body).setVisibility(View.INVISIBLE);
+                        showDescription = false;
+                    } else {
+                        v.findViewById(R.id.article_body).startAnimation(fadeIn);
+                        v.findViewById(R.id.article_body).setVisibility(View.VISIBLE);
+                        showDescription = true;
+                    }
+                }
+            }
+        });
     }
 
     @Override

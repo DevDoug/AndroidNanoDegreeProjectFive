@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/C:/Users/Douglas/Downloads/xyzreader/xyzreader/XYZReader/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
+    <!-- From: file:/E:/Projects/NanoDegreeProjectFive/XYZReader/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
     <eat-comment/>
     <attr format="reference" name="drawerArrowStyle"/>
     <attr format="dimension" name="height"/>
@@ -12,10 +12,10 @@
     <bool name="abc_config_actionMenuItemAllCaps">true</bool>
     <bool name="abc_config_allowActionMenuItemTextWithIcon">false</bool>
     <bool name="abc_config_showMenuShortcutsWhenKeyboardPresent">false</bool>
-    <!-- From: file:/C:/Users/Douglas/Downloads/xyzreader/xyzreader/XYZReader/src/main/res/values/macro_layout.xml -->
+    <!-- From: file:/E:/Projects/NanoDegreeProjectFive/XYZReader/src/main/res/values/macro_layout.xml -->
     <eat-comment/>
     <bool name="detail_is_card">false</bool>
-    <!-- From: file:/C:/Users/Douglas/Downloads/xyzreader/xyzreader/XYZReader/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
+    <!-- From: file:/E:/Projects/NanoDegreeProjectFive/XYZReader/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
     <eat-comment/>
     <color name="abc_input_method_navigation_guard">@android:color/black</color>
     <color name="abc_search_url_text_normal">#7fa87f</color>
@@ -35,13 +35,13 @@
     <color name="bright_foreground_material_light">@android:color/black</color>
     <color name="button_material_dark">#ff5a595b</color>
     <color name="button_material_light">#ffd6d7d7</color>
-    <!-- From: file:/C:/Users/Douglas/Downloads/xyzreader/xyzreader/XYZReader/build/intermediates/exploded-aar/com.android.support/cardview-v7/22.0.0/res/values/values.xml -->
+    <!-- From: file:/E:/Projects/NanoDegreeProjectFive/XYZReader/build/intermediates/exploded-aar/com.android.support/cardview-v7/22.0.0/res/values/values.xml -->
     <eat-comment/>
     <color name="cardview_dark_background">#FF202020</color>
     <color name="cardview_light_background">#FFFAFAFA</color>
     <color name="cardview_shadow_end_color">#03000000</color>
     <color name="cardview_shadow_start_color">#37000000</color>
-    <!-- From: file:/C:/Users/Douglas/Downloads/xyzreader/xyzreader/XYZReader/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
+    <!-- From: file:/E:/Projects/NanoDegreeProjectFive/XYZReader/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
     <eat-comment/>
     <color name="dim_foreground_disabled_material_dark">#80bebebe</color>
     <color name="dim_foreground_disabled_material_light">#80323232</color>
@@ -51,27 +51,27 @@
     <color name="highlighted_text_material_light">#66009688</color>
     <color name="hint_foreground_material_dark">@color/bright_foreground_disabled_material_dark</color>
     <color name="hint_foreground_material_light">@color/bright_foreground_disabled_material_light</color>
-    <!-- From: file:/C:/Users/Douglas/Downloads/xyzreader/xyzreader/XYZReader/src/main/res/values/colors.xml -->
+    <!-- From: file:/E:/Projects/NanoDegreeProjectFive/XYZReader/src/main/res/values/colors.xml -->
     <eat-comment/>
     <color name="light_grey_text">#9E9E9E</color>
-    <!-- From: file:/C:/Users/Douglas/Downloads/xyzreader/xyzreader/XYZReader/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
+    <!-- From: file:/E:/Projects/NanoDegreeProjectFive/XYZReader/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
     <eat-comment/>
     <color name="link_text_material_dark">@color/material_deep_teal_200</color>
     <color name="link_text_material_light">@color/material_deep_teal_500</color>
-    <!-- From: file:/C:/Users/Douglas/Downloads/xyzreader/xyzreader/XYZReader/src/main/res/values/colors.xml -->
+    <!-- From: file:/E:/Projects/NanoDegreeProjectFive/XYZReader/src/main/res/values/colors.xml -->
     <eat-comment/>
     <color name="ltgray">#212121</color>
-    <!-- From: file:/C:/Users/Douglas/Downloads/xyzreader/xyzreader/XYZReader/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
+    <!-- From: file:/E:/Projects/NanoDegreeProjectFive/XYZReader/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
     <eat-comment/>
     <color name="material_blue_grey_800">#ff37474f</color>
     <color name="material_blue_grey_900">#ff263238</color>
     <color name="material_blue_grey_950">#ff21272b</color>
     <color name="material_deep_teal_200">#ff80cbc4</color>
     <color name="material_deep_teal_500">#ff009688</color>
-    <!-- From: file:/C:/Users/Douglas/Downloads/xyzreader/xyzreader/XYZReader/src/main/res/values/colors.xml -->
+    <!-- From: file:/E:/Projects/NanoDegreeProjectFive/XYZReader/src/main/res/values/colors.xml -->
     <eat-comment/>
     <color name="photo_placeholder">#ccc</color>
-    <!-- From: file:/C:/Users/Douglas/Downloads/xyzreader/xyzreader/XYZReader/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
+    <!-- From: file:/E:/Projects/NanoDegreeProjectFive/XYZReader/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
     <eat-comment/>
     <color name="primary_dark_material_dark">#ff000000</color>
     <color name="primary_dark_material_light">#ff757575</color>
@@ -89,7 +89,7 @@
     <color name="secondary_text_disabled_material_light">#24000000</color>
     <color name="switch_thumb_normal_material_dark">#ffbdbdbd</color>
     <color name="switch_thumb_normal_material_light">#fff1f1f1</color>
-    <!-- From: file:/C:/Users/Douglas/Downloads/xyzreader/xyzreader/XYZReader/src/main/res/values/colors.xml -->
+    <!-- From: file:/E:/Projects/NanoDegreeProjectFive/XYZReader/src/main/res/values/colors.xml -->
     <eat-comment/>
     <color name="theme_accent">#607D8B</color>
     <color name="theme_primary">#EEEEEE</color>
@@ -120,7 +120,7 @@
     <declare-styleable name="Toolbar"><attr format="reference" name="titleTextAppearance"/><attr format="reference" name="subtitleTextAppearance"/><attr name="title"/><attr name="subtitle"/><attr name="android:gravity"/><attr format="dimension" name="titleMargins"/><attr format="dimension" name="titleMarginStart"/><attr format="dimension" name="titleMarginEnd"/><attr format="dimension" name="titleMarginTop"/><attr format="dimension" name="titleMarginBottom"/><attr name="contentInsetStart"/><attr name="contentInsetEnd"/><attr name="contentInsetLeft"/><attr name="contentInsetRight"/><attr format="dimension" name="maxButtonHeight"/><attr format="reference" name="theme"/><attr format="reference" name="collapseIcon"/><attr format="string" name="collapseContentDescription"/><attr name="popupTheme"/><attr format="reference" name="navigationIcon"/><attr format="string" name="navigationContentDescription"/><attr name="android:minHeight"/></declare-styleable>
     <declare-styleable name="View"><attr format="dimension" name="paddingStart"/><attr format="dimension" name="paddingEnd"/><attr name="android:focusable"/></declare-styleable>
     <declare-styleable name="ViewStubCompat"><attr name="android:layout"/><attr name="android:inflatedId"/><attr name="android:id"/></declare-styleable>
-    <!-- From: file:/C:/Users/Douglas/Downloads/xyzreader/xyzreader/XYZReader/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
+    <!-- From: file:/E:/Projects/NanoDegreeProjectFive/XYZReader/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
     <eat-comment/>
     <dimen name="abc_action_bar_default_height_material">56dp</dimen>
     <dimen name="abc_action_bar_default_padding_material">4dp</dimen>
@@ -164,18 +164,18 @@
     <dimen name="abc_text_size_subtitle_material_toolbar">16dp</dimen>
     <dimen name="abc_text_size_title_material">20sp</dimen>
     <dimen name="abc_text_size_title_material_toolbar">20dp</dimen>
-    <!-- From: file:/C:/Users/Douglas/Downloads/xyzreader/xyzreader/XYZReader/build/intermediates/exploded-aar/com.android.support/cardview-v7/22.0.0/res/values/values.xml -->
+    <!-- From: file:/E:/Projects/NanoDegreeProjectFive/XYZReader/build/intermediates/exploded-aar/com.android.support/cardview-v7/22.0.0/res/values/values.xml -->
     <eat-comment/>
     <dimen name="cardview_compat_inset_shadow">1dp</dimen>
     <dimen name="cardview_default_elevation">2dp</dimen>
     <dimen name="cardview_default_radius">2dp</dimen>
-    <!-- From: file:/C:/Users/Douglas/Downloads/xyzreader/xyzreader/XYZReader/src/main/res/values/macro_layout.xml -->
+    <!-- From: file:/E:/Projects/NanoDegreeProjectFive/XYZReader/src/main/res/values/macro_layout.xml -->
     <eat-comment/>
     <dimen name="detail_body_bottom_margin">88dp</dimen>
-    <!-- From: file:/C:/Users/Douglas/Downloads/xyzreader/xyzreader/XYZReader/src/main/res/values/dimens.xml -->
+    <!-- From: file:/E:/Projects/NanoDegreeProjectFive/XYZReader/src/main/res/values/dimens.xml -->
     <eat-comment/>
     <dimen name="detail_body_text_size">22sp</dimen>
-    <!-- From: file:/C:/Users/Douglas/Downloads/xyzreader/xyzreader/XYZReader/src/main/res/values/macro_layout.xml -->
+    <!-- From: file:/E:/Projects/NanoDegreeProjectFive/XYZReader/src/main/res/values/macro_layout.xml -->
     <eat-comment/>
     <dimen name="detail_body_top_margin">16dp</dimen>
     <dimen name="detail_card_max_width">10000dp</dimen>
@@ -184,10 +184,10 @@
     <dimen name="detail_metabar_title_bottom_padding">4dp</dimen>
     <dimen name="detail_metabar_vert_padding">16dp</dimen>
     <dimen name="detail_photo_height">304dp</dimen>
-    <!-- From: file:/C:/Users/Douglas/Downloads/xyzreader/xyzreader/XYZReader/src/main/res/values/dimens.xml -->
+    <!-- From: file:/E:/Projects/NanoDegreeProjectFive/XYZReader/src/main/res/values/dimens.xml -->
     <eat-comment/>
     <dimen name="detail_title_text_size">32sp</dimen>
-    <!-- From: file:/C:/Users/Douglas/Downloads/xyzreader/xyzreader/XYZReader/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
+    <!-- From: file:/E:/Projects/NanoDegreeProjectFive/XYZReader/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
     <eat-comment/>
     <item name="dialog_fixed_height_major" type="dimen">80%</item>
     <item name="dialog_fixed_height_minor" type="dimen">100%</item>
@@ -195,19 +195,19 @@
     <item name="dialog_fixed_width_minor" type="dimen">320dp</item>
     <item format="float" name="disabled_alpha_material_dark" type="dimen">0.30</item>
     <item format="float" name="disabled_alpha_material_light" type="dimen">0.26</item>
-    <!-- From: file:/C:/Users/Douglas/Downloads/xyzreader/xyzreader/XYZReader/src/main/res/values/dimens.xml -->
+    <!-- From: file:/E:/Projects/NanoDegreeProjectFive/XYZReader/src/main/res/values/dimens.xml -->
     <eat-comment/>
     <dimen name="fab_elevation">2dp</dimen>
     <dimen name="fab_margin">24dp</dimen>
     <dimen name="fab_press_translation_z">6dp</dimen>
-    <!-- From: file:/C:/Users/Douglas/Downloads/xyzreader/xyzreader/XYZReader/src/main/res/values/macro_layout.xml -->
+    <!-- From: file:/E:/Projects/NanoDegreeProjectFive/XYZReader/src/main/res/values/macro_layout.xml -->
     <eat-comment/>
     <dimen name="list_side_margin">4dp</dimen>
     <dimen name="list_toolbar_side_margin">0dp</dimen>
-    <!-- From: file:/C:/Users/Douglas/Downloads/xyzreader/xyzreader/XYZReader/src/main/res/values/dimens.xml -->
+    <!-- From: file:/E:/Projects/NanoDegreeProjectFive/XYZReader/src/main/res/values/dimens.xml -->
     <eat-comment/>
     <item format="float" name="detail_body_line_spacing_multiplier" type="fraction">1.25</item>
-    <!-- From: file:/C:/Users/Douglas/Downloads/xyzreader/xyzreader/XYZReader/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
+    <!-- From: file:/E:/Projects/NanoDegreeProjectFive/XYZReader/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
     <eat-comment/>
     <item name="action_bar_activity_content" type="id"/>
     <item name="action_bar_spinner" type="id"/>
@@ -221,10 +221,10 @@
     <integer name="abc_config_activityDefaultDur">220</integer>
     <integer name="abc_config_activityShortDur">150</integer>
     <integer name="abc_max_action_buttons">2</integer>
-    <!-- From: file:/C:/Users/Douglas/Downloads/xyzreader/xyzreader/XYZReader/src/main/res/values/macro_layout.xml -->
+    <!-- From: file:/E:/Projects/NanoDegreeProjectFive/XYZReader/src/main/res/values/macro_layout.xml -->
     <eat-comment/>
     <integer name="list_column_count">1</integer>
-    <!-- From: file:/C:/Users/Douglas/Downloads/xyzreader/xyzreader/XYZReader/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
+    <!-- From: file:/E:/Projects/NanoDegreeProjectFive/XYZReader/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
     <eat-comment/>
     <string name="abc_action_bar_home_description">Navigate home</string>
     <string name="abc_action_bar_home_description_format">%1$s, %2$s</string>
@@ -242,7 +242,7 @@
     <string name="abc_shareactionprovider_share_with">Share with</string>
     <string name="abc_shareactionprovider_share_with_application">Share with %s</string>
     <string name="abc_toolbar_collapse_description">Collapse</string>
-    <!-- From: file:/C:/Users/Douglas/Downloads/xyzreader/xyzreader/XYZReader/src/main/res/values/strings.xml -->
+    <!-- From: file:/E:/Projects/NanoDegreeProjectFive/XYZReader/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="action_refresh">Refresh</string>
     <string name="action_settings">Settings</string>
@@ -250,7 +250,7 @@
     <string name="app_name">XYZ Reader</string>
     <string name="up">Up</string>
     <string name="welcome_xyz_reader">Welcome to XYZ Reader!</string>
-    <!-- From: file:/C:/Users/Douglas/Downloads/xyzreader/xyzreader/XYZReader/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
+    <!-- From: file:/E:/Projects/NanoDegreeProjectFive/XYZReader/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
     <eat-comment/>
     <style name="Animation.AppCompat.DropDownUp" parent="Base.Animation.AppCompat.DropDownUp"/>
     <style name="Base.Animation.AppCompat.DropDownUp" parent="android:Animation">
@@ -1106,7 +1106,7 @@
         <item name="android:scaleType">center</item>
         <item name="android:background">?attr/selectableItemBackground</item>
     </style>
-    <!-- From: file:/C:/Users/Douglas/Downloads/xyzreader/xyzreader/XYZReader/build/intermediates/exploded-aar/com.android.support/cardview-v7/22.0.0/res/values/values.xml -->
+    <!-- From: file:/E:/Projects/NanoDegreeProjectFive/XYZReader/build/intermediates/exploded-aar/com.android.support/cardview-v7/22.0.0/res/values/values.xml -->
     <eat-comment/>
     <style name="CardView">
         <item name="cardBackgroundColor">@color/cardview_light_background</item>
@@ -1122,7 +1122,7 @@
     <style name="CardView.Light">
         <item name="cardBackgroundColor">@color/cardview_light_background</item>
     </style>
-    <!-- From: file:/C:/Users/Douglas/Downloads/xyzreader/xyzreader/XYZReader/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
+    <!-- From: file:/E:/Projects/NanoDegreeProjectFive/XYZReader/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
     <eat-comment/>
     <style name="Platform.AppCompat" parent="android:Theme">
         <item name="android:windowNoTitle">true</item>
@@ -1382,7 +1382,7 @@
         <item name="windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
     </style>
-    <!-- From: file:/C:/Users/Douglas/Downloads/xyzreader/xyzreader/XYZReader/src/main/res/values/styles.xml -->
+    <!-- From: file:/E:/Projects/NanoDegreeProjectFive/XYZReader/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="Theme.Bacon" parent="@style/Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/theme_primary</item>
@@ -1392,7 +1392,7 @@
     <style name="Theme.Bacon.Detail">
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
-    <!-- From: file:/C:/Users/Douglas/Downloads/xyzreader/xyzreader/XYZReader/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
+    <!-- From: file:/E:/Projects/NanoDegreeProjectFive/XYZReader/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
     <eat-comment/>
     <style name="ThemeOverlay.AppCompat" parent="Base.ThemeOverlay.AppCompat"/>
     <style name="ThemeOverlay.AppCompat.ActionBar" parent="Base.ThemeOverlay.AppCompat.ActionBar"/>

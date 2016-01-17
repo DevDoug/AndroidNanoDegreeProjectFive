@@ -18,6 +18,7 @@ public final class R {
         public static final int abc_slide_out_bottom=0x7f050006;
         public static final int abc_slide_out_top=0x7f050007;
         public static final int fab_state_list_anim=0x7f050008;
+        public static final int newspaper_selected_anim=0x7f050009;
     }
     public static final class attr {
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"

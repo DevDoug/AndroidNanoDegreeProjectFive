@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -48,15 +49,13 @@ public class ArticleListActivity extends ActionBarActivity implements
     private static int mWordBuffer = 200;//number of words we will display at a time
     private static int mMaxChars = 0;
 
-
     private Toolbar mToolbar;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
     private ImageView mFAB;
     private int mTextPostion = 0;
-    Animation fadeIn = new AlphaAnimation(0.0f,1.0f);
-    Animation fadeOut = new AlphaAnimation(1.0f,0.0f);
-    boolean showDescription = true;
+    Animation fadeIn = new AlphaAnimation(0.0f, 1.0f);
+    Animation fadeOut = new AlphaAnimation(1.0f, 0.0f);
     Adapter mAdapter;
     String mbodyText;
     boolean mEndsInSpace = true;
@@ -86,8 +85,8 @@ public class ArticleListActivity extends ActionBarActivity implements
                     View v = mRecyclerView.getChildAt(i);
                     v.findViewById(R.id.article_body).startAnimation(fadeIn);
                     mRecyclerView.invalidate();
-                    ArticleListActivity.this.runOnUiThread(new Runnable(){
-                        public void run(){
+                    ArticleListActivity.this.runOnUiThread(new Runnable() {
+                        public void run() {
                             mAdapter.notifyItemChanged(index);
                         }
                     });
@@ -124,23 +123,23 @@ public class ArticleListActivity extends ActionBarActivity implements
             @Override
             public void run() {
                 try {
-                    while(true) {
+                    while (true) {
                         sleep(mFadeSleepTime);
                         mTextPostion += mWordBuffer;
 
-                        while(mEndsInSpace) {
-                            if(mbodyText.charAt(mTextPostion) != ' '){
+                        while (mEndsInSpace) {
+                            if (mbodyText.charAt(mTextPostion) != ' ') {
                                 mTextPostion += 1;
-                            }else {
+                            } else {
                                 mEndsInSpace = false;
                             }
                         }
 
-                        if(mTextPostion > mMaxChars)
+                        if (mTextPostion > mMaxChars)
                             mTextPostion = 0;
 
-                        ArticleListActivity.this.runOnUiThread(new Runnable(){
-                            public void run(){
+                        ArticleListActivity.this.runOnUiThread(new Runnable() {
+                            public void run() {
                                 for (int i = 0; i < mRecyclerView.getChildCount(); i++) {
                                     View v = mRecyclerView.getChildAt(i);
                                     v.findViewById(R.id.article_body).startAnimation(fadeOut);
@@ -259,7 +258,16 @@ public class ArticleListActivity extends ActionBarActivity implements
 
             mbodyText = mCursor.getString(ArticleLoader.Query.BODY);
             mMaxChars = mbodyText.length();
-            holder.bodyView.setText(mbodyText.substring(mTextPostion,mTextPostion + mWordBuffer));
+            holder.bodyView.setText(mbodyText.substring(mTextPostion, mTextPostion + mWordBuffer));
+
+            holder.thumbnailView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Animation hyperspaceJumpAnimation;
+                    hyperspaceJumpAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.newspaper_selected_anim);
+                    v.setAnimation(hyperspaceJumpAnimation);
+                }
+            });
         }
 
         @Override
@@ -274,7 +282,7 @@ public class ArticleListActivity extends ActionBarActivity implements
         public TextView subtitleView;
         public TextView bodyView;
 
-        public ViewHolder(View view) {
+        public ViewHolder(final View view) {
             super(view);
             thumbnailView = (DynamicHeightNetworkImageView) view.findViewById(R.id.thumbnail);
             titleView = (TextView) view.findViewById(R.id.article_title);

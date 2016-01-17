@@ -7,6 +7,7 @@ int anim abc_slide_in_top 0x7f050005
 int anim abc_slide_out_bottom 0x7f050006
 int anim abc_slide_out_top 0x7f050007
 int anim fab_state_list_anim 0x7f050008
+int anim newspaper_selected_anim 0x7f050009
 int attr actionBarDivider 0x7f010066
 int attr actionBarItemBackground 0x7f010067
 int attr actionBarPopupTheme 0x7f010060

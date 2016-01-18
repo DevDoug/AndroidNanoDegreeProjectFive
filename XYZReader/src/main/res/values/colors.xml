@@ -24,4 +24,7 @@
     <color name="ltgray">#212121</color>
 
     <color name="light_grey_text">#9E9E9E</color>
+
+    <color name="blue_page_number_color">#607d8b</color>
+    <color name="highlited_page_color">#BBDEFB</color>
 </resources>

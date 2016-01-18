@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.Loader;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -22,19 +23,17 @@ import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.xyzreader.R;
 import com.example.xyzreader.data.ArticleLoader;
 import com.example.xyzreader.data.ItemsContract;
 import com.example.xyzreader.data.UpdaterService;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.TimerTask;
-import java.util.logging.Handler;
-import java.util.logging.LogRecord;
+import com.example.xyzreader.views.NewspaperRolledView;
 
 /**
  * An activity representing a list of Articles. This activity has different presentations for
@@ -45,9 +44,11 @@ import java.util.logging.LogRecord;
 public class ArticleListActivity extends ActionBarActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
-    private static int mFadeSleepTime = 8000;
-    private static int mWordBuffer = 200;//number of words we will display at a time
-    private static int mMaxChars = 0;
+    private int mFadeSleepTime = 16000;
+    private int mWordBuffer = 200;//number of words we will display at a time
+    private int mMaxChars = 0;
+    private int mTotalPages = 0;
+    private int mCurrentPage = 0;
 
     private Toolbar mToolbar;
     private SwipeRefreshLayout mSwipeRefreshLayout;
@@ -99,7 +100,6 @@ public class ArticleListActivity extends ActionBarActivity implements
             }
         });
 
-
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
@@ -110,7 +110,6 @@ public class ArticleListActivity extends ActionBarActivity implements
         }
 
         mRecyclerView.setItemAnimator(null);
-
 
        /* mFAB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,8 +134,10 @@ public class ArticleListActivity extends ActionBarActivity implements
                             }
                         }
 
-                        if (mTextPostion > mMaxChars)
+                        if (mTextPostion > mMaxChars - mWordBuffer) {
                             mTextPostion = 0;
+                            mCurrentPage = -1;
+                        }
 
                         ArticleListActivity.this.runOnUiThread(new Runnable() {
                             public void run() {
@@ -144,6 +145,7 @@ public class ArticleListActivity extends ActionBarActivity implements
                                     View v = mRecyclerView.getChildAt(i);
                                     v.findViewById(R.id.article_body).startAnimation(fadeOut);
                                 }
+                                mCurrentPage = mCurrentPage + 1;
                             }
                         });
 
@@ -165,8 +167,7 @@ public class ArticleListActivity extends ActionBarActivity implements
     @Override
     protected void onStart() {
         super.onStart();
-        registerReceiver(mRefreshingReceiver,
-                new IntentFilter(UpdaterService.BROADCAST_ACTION_STATE_CHANGE));
+        registerReceiver(mRefreshingReceiver, new IntentFilter(UpdaterService.BROADCAST_ACTION_STATE_CHANGE));
     }
 
     @Override
@@ -202,8 +203,7 @@ public class ArticleListActivity extends ActionBarActivity implements
         mAdapter.setHasStableIds(true);
         mRecyclerView.setAdapter(mAdapter);
         int columnCount = getResources().getInteger(R.integer.list_column_count);
-        StaggeredGridLayoutManager sglm =
-                new StaggeredGridLayoutManager(columnCount, StaggeredGridLayoutManager.VERTICAL);
+        StaggeredGridLayoutManager sglm = new StaggeredGridLayoutManager(columnCount, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(sglm);
     }
 
@@ -232,8 +232,7 @@ public class ArticleListActivity extends ActionBarActivity implements
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    startActivity(new Intent(Intent.ACTION_VIEW,
-                            ItemsContract.Items.buildItemUri(getItemId(vh.getAdapterPosition()))));
+                    startActivity(new Intent(Intent.ACTION_VIEW, ItemsContract.Items.buildItemUri(getItemId(vh.getAdapterPosition()))));
                 }
             });
             return vh;
@@ -258,7 +257,31 @@ public class ArticleListActivity extends ActionBarActivity implements
 
             mbodyText = mCursor.getString(ArticleLoader.Query.BODY);
             mMaxChars = mbodyText.length();
+            mTotalPages = mMaxChars/mWordBuffer;
             holder.bodyView.setText(mbodyText.substring(mTextPostion, mTextPostion + mWordBuffer));
+
+            holder.pagesview.removeAllViews();
+            for(int i = 0; i < mTotalPages; i++){
+                TextView mPageText = new TextView(getApplicationContext());
+                mPageText.setLayoutParams(new RelativeLayout.LayoutParams(RecyclerView.LayoutParams.WRAP_CONTENT, RecyclerView.LayoutParams.WRAP_CONTENT));
+                mPageText.setText(Integer.toString(i + 1));
+                mPageText.setPadding(10,10,10,0);
+                mPageText.setTextSize(19);
+
+                if(mCurrentPage == i)
+                    mPageText.setTextColor(getResources().getColor(R.color.highlited_page_color));
+                else
+                    mPageText.setTextColor(getResources().getColor(R.color.blue_page_number_color));
+
+                mPageText.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //holder.bodyView.setText(mbodyText.substring(mTextPostion, mTextPostion + mWordBuffer));
+                    }
+                });
+
+                holder.pagesview.addView(mPageText);
+            }
 
             holder.thumbnailView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -281,6 +304,7 @@ public class ArticleListActivity extends ActionBarActivity implements
         public TextView titleView;
         public TextView subtitleView;
         public TextView bodyView;
+        public LinearLayout pagesview;
 
         public ViewHolder(final View view) {
             super(view);
@@ -288,6 +312,7 @@ public class ArticleListActivity extends ActionBarActivity implements
             titleView = (TextView) view.findViewById(R.id.article_title);
             subtitleView = (TextView) view.findViewById(R.id.article_subtitle);
             bodyView = (TextView) view.findViewById(R.id.article_body);
+            pagesview = (LinearLayout) view.findViewById(R.id.newspaper_clip_pages);
         }
     }
 }

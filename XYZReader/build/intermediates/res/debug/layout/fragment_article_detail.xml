@@ -28,7 +28,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="112dp"
-                    android:background="@drawable/photo_background_protection" />
+                    android:background="@color/theme_primary" />
 
             </FrameLayout>
 
@@ -46,7 +46,7 @@
                     android:id="@+id/meta_bar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#333"
+                    android:background="@color/theme_primary_dark"
                     android:layout_gravity="bottom"
                     android:orientation="vertical"
                     android:paddingLeft="@dimen/detail_inner_horiz_margin"

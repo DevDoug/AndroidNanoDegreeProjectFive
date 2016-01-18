@@ -1,118 +1,127 @@
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/newspaper_container"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:background="@drawable/newspaper_card_background"
+    android:clickable="true"
+    android:transitionName="@string/transition_list_item"
+    android:descendantFocusability="beforeDescendants"
+    android:focusable="true"
+    android:foreground="?selectableItemBackground">
 
-    <android.support.v7.widget.CardView
-
+    <RelativeLayout
+        android:id="@+id/newspapaer_clip_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        android:focusable="true"
-        android:background="@drawable/newspaper_card_background"
-        android:foreground="?selectableItemBackground"
-        android:layout_margin="5dp">
+        android:orientation="vertical">
 
-        <RelativeLayout
+        <!--suppress AndroidLintContentDescription -->
+        <com.example.xyzreader.ui.DynamicHeightNetworkImageView
+            android:id="@+id/thumbnail"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="5dp"
+            android:background="@color/photo_placeholder"
+            android:elevation="6dp" />
+
+        <TextView
+            android:id="@+id/article_title"
+            style="@style/TextAppearance.AppCompat.Subhead"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/thumbnail"
+            android:ellipsize="end"
+            android:maxLines="4"
+            android:paddingBottom="4dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="16dp"
+            android:textColor="@color/ltgray" />
+
+        <TextView
+            android:id="@+id/article_subtitle"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/article_title"
+            android:layout_marginBottom="20dp"
+            android:layout_toRightOf="@+id/thumbnail"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:paddingBottom="16dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:singleLine="true"
+            android:textColor="@color/light_grey_text" />
+
+        <TextView
+            android:id="@+id/article_body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/thumbnail"
+            android:layout_alignStart="@+id/thumbnail"
+            android:layout_below="@+id/thumbnail"
+            android:layout_marginTop="20dp"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:paddingBottom="16dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+                dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
+            android:textColor="@android:color/black" />
+
+        <ImageButton
+            android:id="@+id/add_to_lib_fab"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="false"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/article_body"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="@dimen/fab_margin"
+            android:background="@drawable/add_fab_background"
+            android:contentDescription="@string/action_share"
+            android:elevation="6dp"
+            android:src="@drawable/ic_add_white_24dp"
+            android:stateListAnimator="@anim/fab_state_list_anim" />
+
+        <ImageButton
+            android:id="@+id/imageButton2"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/article_body"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="19dp"
+            android:layout_marginRight="19dp"
+            android:layout_toLeftOf="@+id/add_to_lib_fab"
+            android:layout_toStartOf="@+id/add_to_lib_fab"
+            android:contentDescription="@string/action_share"
+            android:src="@drawable/ic_facebook_box_blue_36dp"
+            android:stateListAnimator="@anim/fab_state_list_anim" />
+
+        <LinearLayout
+            android:id="@+id/newspaper_clip_pages"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:id="@+id/newspapaer_clip_container">
+            android:layout_alignBottom="@+id/add_to_lib_fab"
+            android:layout_alignLeft="@+id/article_body"
+            android:layout_alignStart="@+id/article_body"
+            android:layout_alignTop="@+id/add_to_lib_fab"
+            android:layout_toLeftOf="@+id/imageButton2"
+            android:layout_toStartOf="@+id/imageButton2"
+            android:orientation="horizontal"></LinearLayout>
 
-            <!--suppress AndroidLintContentDescription -->
-            <com.example.xyzreader.ui.DynamicHeightNetworkImageView
-                android:id="@+id/thumbnail"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:background="@color/photo_placeholder"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_margin="5dp" />
+    </RelativeLayout>
 
-            <TextView
-                android:id="@+id/article_title"
-                style="@style/TextAppearance.AppCompat.Subhead"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:paddingTop="16dp"
-                android:paddingRight="16dp"
-                android:paddingBottom="4dp"
-                android:textColor="@color/ltgray"
-                android:ellipsize="end"
-                android:maxLines="4"
-                android:layout_alignParentTop="true"
-                android:layout_toRightOf="@+id/thumbnail"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
-
-            <TextView
-                android:id="@+id/article_subtitle"
-                style="@style/TextAppearance.AppCompat.Body1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:paddingBottom="16dp"
-                android:textColor="@color/light_grey_text"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:ellipsize="end"
-                android:layout_below="@+id/article_title"
-                android:layout_toRightOf="@+id/thumbnail"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginBottom="20dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/article_body"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:paddingBottom="16dp"
-                android:maxLines="3"
-                android:ellipsize="end"
-                android:textColor="@android:color/black"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-                dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
-                android:layout_below="@+id/thumbnail"
-                android:layout_alignLeft="@+id/thumbnail"
-                android:layout_alignStart="@+id/thumbnail"
-                android:layout_marginTop="20dp" />
-
-            <ImageButton android:id="@+id/add_to_lib_fab"
-                android:stateListAnimator="@anim/fab_state_list_anim"
-                android:background="@drawable/add_fab_background"
-                android:layout_gravity="bottom|end"
-                android:layout_marginRight="@dimen/fab_margin"
-                android:layout_below="@+id/article_body"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_add_white_24dp"
-                android:elevation="@dimen/fab_elevation"
-                android:contentDescription="@string/action_share"
-                android:layout_alignParentEnd="false"
-                android:layout_alignParentRight="true"
-                android:layout_marginBottom="5dp" />
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/add_to_lib_fab"
-                android:layout_alignLeft="@+id/article_body"
-                android:layout_alignStart="@+id/article_body"
-                android:layout_alignTop="@+id/add_to_lib_fab"
-                android:layout_toLeftOf="@+id/add_to_lib_fab"
-                android:layout_toStartOf="@+id/add_to_lib_fab"
-                android:id="@+id/newspaper_clip_pages"></LinearLayout>
-
-        </RelativeLayout>
-
-    </android.support.v7.widget.CardView>
-
-</FrameLayout>
+</android.support.v7.widget.CardView>

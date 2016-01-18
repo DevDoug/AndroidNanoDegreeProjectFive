@@ -1,5 +1,6 @@
 package com.example.xyzreader.ui;
 
+import android.app.Activity;
 import android.app.LoaderManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -9,6 +10,8 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -30,10 +33,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.xyzreader.R;
+import com.example.xyzreader.animation.ExpandingCardViewAnimation;
 import com.example.xyzreader.data.ArticleLoader;
 import com.example.xyzreader.data.ItemsContract;
 import com.example.xyzreader.data.UpdaterService;
 import com.example.xyzreader.views.NewspaperRolledView;
+
+import org.w3c.dom.Text;
 
 /**
  * An activity representing a list of Articles. This activity has different presentations for
@@ -57,6 +63,8 @@ public class ArticleListActivity extends ActionBarActivity implements
     private int mTextPostion = 0;
     Animation fadeIn = new AlphaAnimation(0.0f, 1.0f);
     Animation fadeOut = new AlphaAnimation(1.0f, 0.0f);
+    Animation mNewspaperClipSelectedAnimation;
+    Animation mNewspaperClipSlideDownAnimation;
     Adapter mAdapter;
     String mbodyText;
     boolean mEndsInSpace = true;
@@ -101,7 +109,6 @@ public class ArticleListActivity extends ActionBarActivity implements
         });
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
-
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         getLoaderManager().initLoader(0, null, this);
 
@@ -158,6 +165,9 @@ public class ArticleListActivity extends ActionBarActivity implements
         };
 
         thread.start();
+
+        mNewspaperClipSelectedAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.newspaper_selected_anim);
+        mNewspaperClipSlideDownAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.newspaper_unselected_stories_slide_out);
     }
 
     private void refresh() {
@@ -199,7 +209,7 @@ public class ArticleListActivity extends ActionBarActivity implements
 
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
-        mAdapter = new Adapter(cursor);
+        mAdapter = new Adapter(this,cursor);
         mAdapter.setHasStableIds(true);
         mRecyclerView.setAdapter(mAdapter);
         int columnCount = getResources().getInteger(R.integer.list_column_count);
@@ -214,8 +224,10 @@ public class ArticleListActivity extends ActionBarActivity implements
 
     private class Adapter extends RecyclerView.Adapter<ViewHolder> {
         private Cursor mCursor;
+        private Context mContext;
 
-        public Adapter(Cursor cursor) {
+        public Adapter(Context context,Cursor cursor) {
+            mContext = context;
             mCursor = cursor;
         }
 
@@ -226,13 +238,43 @@ public class ArticleListActivity extends ActionBarActivity implements
         }
 
         @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
             View view = getLayoutInflater().inflate(R.layout.list_item_article, parent, false);
             final ViewHolder vh = new ViewHolder(view);
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view) {
-                    startActivity(new Intent(Intent.ACTION_VIEW, ItemsContract.Items.buildItemUri(getItemId(vh.getAdapterPosition()))));
+                public void onClick(final View view) {
+                    for (int i = 0; i < mRecyclerView.getChildCount(); i++) {
+                        View v = mRecyclerView.getChildAt(i);
+                        v.findViewById(R.id.article_body).startAnimation(fadeOut);
+                        v.setAnimation(mNewspaperClipSlideDownAnimation);
+                        v.startAnimation(mNewspaperClipSlideDownAnimation);
+                    }
+                    ExpandingCardViewAnimation animation = new ExpandingCardViewAnimation(getApplicationContext(),parent,view);
+                    animation.configureAnimation();
+                    view.clearAnimation();
+                    view.setAnimation(mNewspaperClipSelectedAnimation);
+                    view.startAnimation(mNewspaperClipSelectedAnimation);
+
+                    mNewspaperClipSlideDownAnimation.setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
+
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            String transitionName = getString(R.string.transition_list_item);
+                            Activity activity = (Activity) mContext;
+                            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, mRecyclerView,transitionName);
+                            ActivityCompat.startActivity(activity, new Intent(Intent.ACTION_VIEW, ItemsContract.Items.buildItemUri(getItemId(vh.getAdapterPosition()))), options.toBundle());
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+
+                        }
+                    });
                 }
             });
             return vh;
@@ -273,24 +315,8 @@ public class ArticleListActivity extends ActionBarActivity implements
                 else
                     mPageText.setTextColor(getResources().getColor(R.color.blue_page_number_color));
 
-                mPageText.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        //holder.bodyView.setText(mbodyText.substring(mTextPostion, mTextPostion + mWordBuffer));
-                    }
-                });
-
                 holder.pagesview.addView(mPageText);
             }
-
-            holder.thumbnailView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Animation hyperspaceJumpAnimation;
-                    hyperspaceJumpAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.newspaper_selected_anim);
-                    v.setAnimation(hyperspaceJumpAnimation);
-                }
-            });
         }
 
         @Override

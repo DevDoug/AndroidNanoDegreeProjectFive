@@ -247,13 +247,37 @@ public class ArticleListActivity extends ActionBarActivity implements LoaderMana
                     mTextSwitcherThread.interrupt(); // interrupt text cycle thread as we go to detail views
                     for (int i = 0; i < mRecyclerView.getChildCount(); i++) {
                         View v = mRecyclerView.getChildAt(i);
-                        v.findViewById(R.id.article_body).startAnimation(fadeOut);
-                        v.setAnimation(mNewspaperClipSlideDownAnimation);
-                        v.startAnimation(mNewspaperClipSlideDownAnimation);
+                        if(v != view) {
+                            v.findViewById(R.id.article_body).startAnimation(fadeOut);
+                            v.setAnimation(mNewspaperClipSlideDownAnimation);
+                            v.startAnimation(mNewspaperClipSlideDownAnimation);
+                        }
                     }
+
+                    mNewspaperClipSlideDownAnimation.setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
+
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            for (int i = 0; i < mRecyclerView.getChildCount(); i++) {
+                                View v = mRecyclerView.getChildAt(i);
+                                if(v != view) {
+                                    v.setVisibility(View.INVISIBLE);
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+
+                        }
+                    });
+
                     ExpandingCardViewAnimation animation = new ExpandingCardViewAnimation(getApplicationContext(),parent,view);
                     animation.configureAnimation();
-                    view.clearAnimation();
                     view.setAnimation(mNewspaperClipSelectedAnimation);
                     view.startAnimation(mNewspaperClipSelectedAnimation);
 

@@ -20,9 +20,11 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.text.format.DateUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -289,10 +291,15 @@ public class ArticleListActivity extends ActionBarActivity implements LoaderMana
 
                         @Override
                         public void onAnimationEnd(Animation animation) {
-                            String transitionName = getString(R.string.transition_list_item);
-                            Activity activity = (Activity) mContext;
-                            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, mRecyclerView,transitionName);
-                            ActivityCompat.startActivity(activity, new Intent(Intent.ACTION_VIEW, ItemsContract.Items.buildItemUri(getItemId(vh.getAdapterPosition()))), options.toBundle());
+                            view.getViewTreeObserver().addOnPreDrawListener(
+                                    new ViewTreeObserver.OnPreDrawListener() {
+                                        @Override
+                                        public boolean onPreDraw() {
+                                            view.getViewTreeObserver().removeOnPreDrawListener(this);
+                                            startPostponedEnterTransition(vh);
+                                            return true;
+                                        }
+                                    });
                         }
 
                         @Override
@@ -304,17 +311,25 @@ public class ArticleListActivity extends ActionBarActivity implements LoaderMana
             return vh;
         }
 
+        public void startPostponedEnterTransition(ViewHolder vh){
+            String transitionName = getString(R.string.transition_list_item);
+            Activity activity = (Activity) mContext;
+            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, mRecyclerView,transitionName);
+            ActivityCompat.startActivity(activity, new Intent(Intent.ACTION_VIEW, ItemsContract.Items.buildItemUri(getItemId(vh.getAdapterPosition()))), options.toBundle());
+        }
+
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
             mCursor.moveToPosition(position);
             holder.titleView.setText(mCursor.getString(ArticleLoader.Query.TITLE));
-            holder.subtitleView.setText(
+            holder.subtitleView.setText(Html.fromHtml(
                     DateUtils.getRelativeTimeSpanString(
                             mCursor.getLong(ArticleLoader.Query.PUBLISHED_DATE),
                             System.currentTimeMillis(), DateUtils.HOUR_IN_MILLIS,
                             DateUtils.FORMAT_ABBREV_ALL).toString()
-                            + " by "
-                            + mCursor.getString(ArticleLoader.Query.AUTHOR));
+                            + " by <font color='#ffffff'>"
+                            + mCursor.getString(ArticleLoader.Query.AUTHOR)
+                            + "</font>"));
             holder.thumbnailView.setImageUrl(
                     mCursor.getString(ArticleLoader.Query.THUMB_URL),
                     ImageLoaderHelper.getInstance(ArticleListActivity.this).getImageLoader());

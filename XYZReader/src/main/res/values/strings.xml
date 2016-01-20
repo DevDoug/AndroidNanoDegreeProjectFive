@@ -9,5 +9,6 @@
 
     <string name="up">Up</string>
     <string name="transition_list_item">listitemtransition</string>
+    <string name="story_added_to_library">Story added to library</string>
 
 </resources>

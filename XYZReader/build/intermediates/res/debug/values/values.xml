@@ -372,6 +372,7 @@
     <string name="status_bar_notification_info_overflow">999+</string>
     <!-- From: file:/E:/Projects/NanoDegreeProjectFive/XYZReader/src/main/res/values/strings.xml -->
     <eat-comment/>
+    <string name="story_added_to_library">Story added to library</string>
     <string name="transition_list_item">listitemtransition</string>
     <string name="up">Up</string>
     <string name="welcome_xyz_reader">Welcome to XYZ Reader!</string>

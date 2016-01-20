@@ -1,5 +1,6 @@
 package com.example.xyzreader.ui;
 
+import android.animation.AnimatorSet;
 import android.app.Activity;
 import android.app.LoaderManager;
 import android.content.BroadcastReceiver;
@@ -10,23 +11,22 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateUtils;
-import android.util.TypedValue;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -47,19 +47,16 @@ import org.w3c.dom.Text;
  * touched, lead to a {@link ArticleDetailActivity} representing item details. On tablets, the
  * activity presents a grid of items as cards.
  */
-public class ArticleListActivity extends ActionBarActivity implements
-        LoaderManager.LoaderCallbacks<Cursor> {
+public class ArticleListActivity extends ActionBarActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private int mFadeSleepTime = 16000;
     private int mWordBuffer = 200;//number of words we will display at a time
     private int mMaxChars = 0;
     private int mTotalPages = 0;
     private int mCurrentPage = 0;
-
     private Toolbar mToolbar;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
-    private ImageView mFAB;
     private int mTextPostion = 0;
     Animation fadeIn = new AlphaAnimation(0.0f, 1.0f);
     Animation fadeOut = new AlphaAnimation(1.0f, 0.0f);
@@ -68,6 +65,8 @@ public class ArticleListActivity extends ActionBarActivity implements
     Adapter mAdapter;
     String mbodyText;
     boolean mEndsInSpace = true;
+    CoordinatorLayout mMainContainer;
+    private Thread mTextSwitcherThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,9 +76,16 @@ public class ArticleListActivity extends ActionBarActivity implements
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
         final View toolbarContainerView = findViewById(R.id.toolbar_container);
-        mFAB = (ImageView) findViewById(R.id.add_to_lib_fab);
+        mMainContainer = (CoordinatorLayout) findViewById(R.id.main_coordinator_layout);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+
         fadeIn.setDuration(2000);
         fadeOut.setDuration(1000);
+
+        mRecyclerView.setItemAnimator(null);
+        mNewspaperClipSelectedAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.newspaper_selected_anim);
+        mNewspaperClipSlideDownAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.newspaper_unselected_stories_slide_out);
 
         fadeOut.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -104,28 +110,21 @@ public class ArticleListActivity extends ActionBarActivity implements
 
             @Override
             public void onAnimationRepeat(Animation animation) {
-
             }
         });
 
-        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
-        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+
         getLoaderManager().initLoader(0, null, this);
 
         if (savedInstanceState == null) {
             refresh();
         }
 
-        mRecyclerView.setItemAnimator(null);
+        setTextFadeThread();
+    }
 
-       /* mFAB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //TODO Add news clip to lib
-            }
-        });*/
-
-        Thread thread = new Thread() {
+    private void setTextFadeThread(){
+        mTextSwitcherThread = new Thread() {
             @Override
             public void run() {
                 try {
@@ -164,10 +163,11 @@ public class ArticleListActivity extends ActionBarActivity implements
             }
         };
 
-        thread.start();
+        mTextSwitcherThread.start();
+    }
 
-        mNewspaperClipSelectedAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.newspaper_selected_anim);
-        mNewspaperClipSlideDownAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.newspaper_unselected_stories_slide_out);
+    private void addStoryToLibrary(){
+
     }
 
     private void refresh() {
@@ -244,6 +244,7 @@ public class ArticleListActivity extends ActionBarActivity implements
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(final View view) {
+                    mTextSwitcherThread.interrupt(); // interrupt text cycle thread as we go to detail views
                     for (int i = 0; i < mRecyclerView.getChildCount(); i++) {
                         View v = mRecyclerView.getChildAt(i);
                         v.findViewById(R.id.article_body).startAnimation(fadeOut);
@@ -272,7 +273,6 @@ public class ArticleListActivity extends ActionBarActivity implements
 
                         @Override
                         public void onAnimationRepeat(Animation animation) {
-
                         }
                     });
                 }
@@ -296,7 +296,6 @@ public class ArticleListActivity extends ActionBarActivity implements
                     ImageLoaderHelper.getInstance(ArticleListActivity.this).getImageLoader());
             holder.thumbnailView.setAspectRatio(mCursor.getFloat(ArticleLoader.Query.ASPECT_RATIO));
 
-
             mbodyText = mCursor.getString(ArticleLoader.Query.BODY);
             mMaxChars = mbodyText.length();
             mTotalPages = mMaxChars/mWordBuffer;
@@ -317,6 +316,22 @@ public class ArticleListActivity extends ActionBarActivity implements
 
                 holder.pagesview.addView(mPageText);
             }
+
+            holder.libraryfabbutton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    addStoryToLibrary();
+                    Snackbar addToLibrarySnackbar = Snackbar.make(mMainContainer,getString(R.string.story_added_to_library),Snackbar.LENGTH_LONG);
+                    addToLibrarySnackbar.show();
+                }
+            });
+
+            holder.facebooklikebutton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //TODO This button should share this newspaper
+                }
+            });
         }
 
         @Override
@@ -331,6 +346,8 @@ public class ArticleListActivity extends ActionBarActivity implements
         public TextView subtitleView;
         public TextView bodyView;
         public LinearLayout pagesview;
+        public ImageButton libraryfabbutton;
+        public ImageButton facebooklikebutton;
 
         public ViewHolder(final View view) {
             super(view);
@@ -339,6 +356,8 @@ public class ArticleListActivity extends ActionBarActivity implements
             subtitleView = (TextView) view.findViewById(R.id.article_subtitle);
             bodyView = (TextView) view.findViewById(R.id.article_body);
             pagesview = (LinearLayout) view.findViewById(R.id.newspaper_clip_pages);
+            libraryfabbutton = (ImageButton) view.findViewById(R.id.add_to_lib_fab);
+            facebooklikebutton = (ImageButton) view.findViewById(R.id.face_book_like_button);
         }
     }
 }

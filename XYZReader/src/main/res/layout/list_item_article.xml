@@ -92,12 +92,12 @@
             android:layout_marginRight="@dimen/fab_margin"
             android:background="@drawable/add_fab_background"
             android:contentDescription="@string/action_share"
-            android:elevation="6dp"
+            android:elevation="4dp"
             android:src="@drawable/ic_add_white_24dp"
             android:stateListAnimator="@anim/fab_state_list_anim" />
 
         <ImageButton
-            android:id="@+id/imageButton2"
+            android:id="@+id/face_book_like_button"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_below="@+id/article_body"
@@ -106,7 +106,10 @@
             android:layout_marginRight="19dp"
             android:layout_toLeftOf="@+id/add_to_lib_fab"
             android:layout_toStartOf="@+id/add_to_lib_fab"
+            android:background="@drawable/add_fab_background"
+
             android:contentDescription="@string/action_share"
+            android:elevation="4dp"
             android:src="@drawable/ic_facebook_box_blue_36dp"
             android:stateListAnimator="@anim/fab_state_list_anim" />
 
@@ -118,8 +121,8 @@
             android:layout_alignLeft="@+id/article_body"
             android:layout_alignStart="@+id/article_body"
             android:layout_alignTop="@+id/add_to_lib_fab"
-            android:layout_toLeftOf="@+id/imageButton2"
-            android:layout_toStartOf="@+id/imageButton2"
+            android:layout_toLeftOf="@+id/face_book_like_button"
+            android:layout_toStartOf="@+id/face_book_like_button"
             android:orientation="horizontal"></LinearLayout>
 
     </RelativeLayout>

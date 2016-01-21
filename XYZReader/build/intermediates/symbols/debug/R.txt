@@ -778,11 +778,12 @@ int string action_settings 0x7f0c0012
 int string action_share 0x7f0c0013
 int string app_name 0x7f0c0014
 int string appbar_scrolling_view_behavior 0x7f0c0015
-int string status_bar_notification_info_overflow 0x7f0c0016
-int string story_added_to_library 0x7f0c0017
-int string transition_list_item 0x7f0c0018
-int string up 0x7f0c0019
-int string welcome_xyz_reader 0x7f0c001a
+int string newspaper_shared 0x7f0c0016
+int string status_bar_notification_info_overflow 0x7f0c0017
+int string story_added_to_library 0x7f0c0018
+int string transition_list_item 0x7f0c0019
+int string up 0x7f0c001a
+int string welcome_xyz_reader 0x7f0c001b
 int style AlertDialog_AppCompat 0x7f0d0000
 int style AlertDialog_AppCompat_Light 0x7f0d0001
 int style Animation_AppCompat_Dialog 0x7f0d0002

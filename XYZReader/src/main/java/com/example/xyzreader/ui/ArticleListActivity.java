@@ -1,6 +1,5 @@
 package com.example.xyzreader.ui;
 
-import android.animation.AnimatorSet;
 import android.app.Activity;
 import android.app.LoaderManager;
 import android.content.BroadcastReceiver;
@@ -9,7 +8,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.Loader;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
@@ -29,19 +27,14 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.example.xyzreader.R;
 import com.example.xyzreader.animation.ExpandingCardViewAnimation;
 import com.example.xyzreader.data.ArticleLoader;
 import com.example.xyzreader.data.ItemsContract;
 import com.example.xyzreader.data.UpdaterService;
-import com.example.xyzreader.views.NewspaperRolledView;
-
-import org.w3c.dom.Text;
 
 /**
  * An activity representing a list of Articles. This activity has different presentations for
@@ -60,6 +53,7 @@ public class ArticleListActivity extends ActionBarActivity implements LoaderMana
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
     private int mTextPostion = 0;
+    public int mPagePadding = 10;
     Animation fadeIn = new AlphaAnimation(0.0f, 1.0f);
     Animation fadeOut = new AlphaAnimation(1.0f, 0.0f);
     Animation mNewspaperClipSelectedAnimation;
@@ -319,7 +313,7 @@ public class ArticleListActivity extends ActionBarActivity implements LoaderMana
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
+        public void onBindViewHolder(final ViewHolder holder, int position) {
             mCursor.moveToPosition(position);
             holder.titleView.setText(mCursor.getString(ArticleLoader.Query.TITLE));
             holder.subtitleView.setText(Html.fromHtml(
@@ -345,7 +339,7 @@ public class ArticleListActivity extends ActionBarActivity implements LoaderMana
                 TextView mPageText = new TextView(getApplicationContext());
                 mPageText.setLayoutParams(new RelativeLayout.LayoutParams(RecyclerView.LayoutParams.WRAP_CONTENT, RecyclerView.LayoutParams.WRAP_CONTENT));
                 mPageText.setText(Integer.toString(i + 1));
-                mPageText.setPadding(10,10,10,0);
+                mPageText.setPadding(mPagePadding,mPagePadding,mPagePadding,0);
                 mPageText.setTextSize(19);
 
                 if(mCurrentPage == i)
@@ -353,6 +347,20 @@ public class ArticleListActivity extends ActionBarActivity implements LoaderMana
                 else
                     mPageText.setTextColor(getResources().getColor(R.color.blue_page_number_color));
 
+                mPageText.setTag(i);
+                mPageText.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        for (int i = 0; i < mTotalPages; i++) {
+                            TextView pageView = (TextView) holder.pagesview.getChildAt(i);
+                            pageView.setTextColor(getResources().getColor(R.color.blue_page_number_color));
+                        }
+                        ((TextView)v).setTextColor(getResources().getColor(R.color.highlited_page_color));
+                        mTextPostion = (int) v.getTag() * mWordBuffer;
+                        mCurrentPage = (int) v.getTag();
+                        v.startAnimation(fadeOut);
+                    }
+                });
                 holder.pagesview.addView(mPageText);
             }
 
@@ -368,7 +376,9 @@ public class ArticleListActivity extends ActionBarActivity implements LoaderMana
             holder.facebooklikebutton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //TODO This button should share this newspaper
+                    addStoryToLibrary();
+                    Snackbar addToLibrarySnackbar = Snackbar.make(mMainContainer,getString(R.string.newspaper_shared),Snackbar.LENGTH_LONG);
+                    addToLibrarySnackbar.show();
                 }
             });
         }

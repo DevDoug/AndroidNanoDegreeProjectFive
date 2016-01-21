@@ -1,8 +1,9 @@
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
+    android:layout_margin="@dimen/card_view_margin"
     android:background="@drawable/newspaper_card_background"
     android:clickable="true"
     android:transitionName="@string/transition_list_item"
@@ -18,8 +19,9 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:background="@color/theme_primary_dark"></LinearLayout>
+            android:layout_height="@dimen/card_background_height"
+            android:background="@color/theme_primary_dark"/>
+
         <!--suppress AndroidLintContentDescription -->
         <com.example.xyzreader.ui.DynamicHeightNetworkImageView
             android:id="@+id/thumbnail"
@@ -28,7 +30,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_margin="5dp"
+            android:layout_margin="@dimen/news_image_margin"
             android:background="@color/photo_placeholder"
             android:elevation="6dp" />
 
@@ -44,10 +46,10 @@
             android:ellipsize="end"
             android:maxLines="4"
             android:paddingBottom="4dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:paddingTop="16dp"
-            android:textColor="#fff" />
+            android:paddingLeft="@dimen/card_title_subtitle_body_padding"
+            android:paddingRight="@dimen/card_title_subtitle_body_padding"
+            android:paddingTop="@dimen/card_title_subtitle_body_padding"
+            android:textColor="@android:color/white" />
 
         <TextView
             android:id="@+id/article_subtitle"
@@ -61,29 +63,11 @@
             android:layout_toRightOf="@+id/thumbnail"
             android:ellipsize="end"
             android:maxLines="1"
-            android:paddingBottom="16dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
+            android:paddingBottom="@dimen/card_title_subtitle_body_padding"
+            android:paddingLeft="@dimen/card_title_subtitle_body_padding"
+            android:paddingRight="@dimen/card_title_subtitle_body_padding"
             android:singleLine="true"
-            android:textColor="#8fff" />
-
-        <TextView
-            android:id="@+id/article_author"
-            style="@style/TextAppearance.AppCompat.Body1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/article_title"
-            android:layout_marginBottom="20dp"
-            android:layout_toRightOf="@+id/thumbnail"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:paddingBottom="16dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:singleLine="true"
-            android:textColor="#8fff" />
+            android:textColor="@color/sub_title_text_color" />
 
         <TextView
             android:id="@+id/article_body"
@@ -95,14 +79,14 @@
             android:layout_marginTop="20dp"
             android:ellipsize="end"
             android:maxLines="3"
-            android:paddingBottom="16dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
+            android:paddingBottom="@dimen/card_title_subtitle_body_padding"
+            android:paddingLeft="@dimen/card_title_subtitle_body_padding"
+            android:paddingRight="@dimen/card_title_subtitle_body_padding"
             android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
                 dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
             android:textColor="@android:color/black" />
 
-        <ImageButton
+        <android.support.design.widget.FloatingActionButton
             android:id="@+id/add_to_lib_fab"
             android:layout_width="30dp"
             android:layout_height="30dp"
@@ -118,7 +102,7 @@
             android:src="@drawable/ic_add_white_24dp"
             android:stateListAnimator="@anim/fab_state_list_anim" />
 
-        <ImageButton
+        <android.support.design.widget.FloatingActionButton
             android:id="@+id/face_book_like_button"
             android:layout_width="30dp"
             android:layout_height="30dp"

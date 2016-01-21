@@ -113,6 +113,9 @@
     <color name="shadow_mid_color">#14000000</color>
     <color name="shadow_start_color">#44000000</color>
     <color name="snackbar_background_color">#323232</color>
+    <!-- From: file:/E:/Projects/NanoDegreeProjectFive/XYZReader/src/main/res/values/colors.xml -->
+    <eat-comment/>
+    <color name="sub_title_text_color">#8fff</color>
     <!-- From: file:/E:/Projects/NanoDegreeProjectFive/XYZReader/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.0/res/values/values.xml -->
     <eat-comment/>
     <color name="switch_thumb_disabled_material_dark">#ff616161</color>
@@ -229,6 +232,11 @@
     <!-- From: file:/E:/Projects/NanoDegreeProjectFive/XYZReader/build/intermediates/exploded-aar/com.android.support/design/22.2.0/res/values/values.xml -->
     <eat-comment/>
     <dimen name="appbar_elevation">4dp</dimen>
+    <!-- From: file:/E:/Projects/NanoDegreeProjectFive/XYZReader/src/main/res/values/dimens.xml -->
+    <eat-comment/>
+    <dimen name="card_background_height">80dp</dimen>
+    <dimen name="card_title_subtitle_body_padding">16dp</dimen>
+    <dimen name="card_view_margin">5dp</dimen>
     <!-- From: file:/E:/Projects/NanoDegreeProjectFive/XYZReader/build/intermediates/exploded-aar/com.android.support/cardview-v7/22.0.0/res/values/values.xml -->
     <eat-comment/>
     <dimen name="cardview_compat_inset_shadow">1dp</dimen>
@@ -287,6 +295,9 @@
     <dimen name="navigation_padding_bottom">8dp</dimen>
     <dimen name="navigation_padding_top_default">0dp</dimen>
     <dimen name="navigation_separator_vertical_padding">8dp</dimen>
+    <!-- From: file:/E:/Projects/NanoDegreeProjectFive/XYZReader/src/main/res/values/dimens.xml -->
+    <eat-comment/>
+    <dimen name="news_image_margin">5dp</dimen>
     <!-- From: file:/E:/Projects/NanoDegreeProjectFive/XYZReader/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.0/res/values/values.xml -->
     <eat-comment/>
     <dimen name="notification_large_icon_height">64dp</dimen>

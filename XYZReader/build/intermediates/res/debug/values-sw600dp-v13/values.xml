@@ -10,6 +10,11 @@
     <dimen name="abc_config_prefDialogWidth">580dp</dimen>
     <dimen name="abc_text_size_subtitle_material_toolbar">16dp</dimen>
     <dimen name="abc_text_size_title_material_toolbar">20dp</dimen>
+    <!-- From: file:/E:/Projects/NanoDegreeProjectFive/XYZReader/src/main/res/values-sw600dp/dimens.xml -->
+    <eat-comment/>
+    <dimen name="card_background_height">80dp</dimen>
+    <dimen name="card_title_subtitle_body_padding">16dp</dimen>
+    <dimen name="card_view_margin">5dp</dimen>
     <!-- From: file:/E:/Projects/NanoDegreeProjectFive/XYZReader/src/main/res/values-sw600dp/macro_layout.xml -->
     <eat-comment/>
     <dimen name="detail_body_bottom_margin">96dp</dimen>
@@ -27,6 +32,7 @@
     <eat-comment/>
     <dimen name="detail_title_text_size">42sp</dimen>
     <dimen name="fab_margin">24dp</dimen>
+    <dimen name="news_image_margin">5dp</dimen>
     <!-- From: file:/E:/Projects/NanoDegreeProjectFive/XYZReader/build/intermediates/exploded-aar/com.android.support/design/22.2.0/res/values-sw600dp/values-sw600dp.xml -->
     <eat-comment/>
     <dimen name="snackbar_action_inline_max_width">0dp</dimen>

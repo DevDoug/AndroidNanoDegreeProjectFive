@@ -10,6 +10,7 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -395,8 +396,8 @@ public class ArticleListActivity extends ActionBarActivity implements LoaderMana
         public TextView subtitleView;
         public TextView bodyView;
         public LinearLayout pagesview;
-        public ImageButton libraryfabbutton;
-        public ImageButton facebooklikebutton;
+        public FloatingActionButton libraryfabbutton;
+        public FloatingActionButton facebooklikebutton;
 
         public ViewHolder(final View view) {
             super(view);
@@ -405,8 +406,8 @@ public class ArticleListActivity extends ActionBarActivity implements LoaderMana
             subtitleView = (TextView) view.findViewById(R.id.article_subtitle);
             bodyView = (TextView) view.findViewById(R.id.article_body);
             pagesview = (LinearLayout) view.findViewById(R.id.newspaper_clip_pages);
-            libraryfabbutton = (ImageButton) view.findViewById(R.id.add_to_lib_fab);
-            facebooklikebutton = (ImageButton) view.findViewById(R.id.face_book_like_button);
+            libraryfabbutton = (FloatingActionButton) view.findViewById(R.id.add_to_lib_fab);
+            facebooklikebutton = (FloatingActionButton) view.findViewById(R.id.face_book_like_button);
         }
     }
 }

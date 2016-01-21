@@ -27,4 +27,5 @@
 
     <color name="blue_page_number_color">#607d8b</color>
     <color name="highlited_page_color">#BBDEFB</color>
+    <color name="sub_title_text_color">#8fff</color>
 </resources>

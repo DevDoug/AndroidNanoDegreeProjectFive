@@ -7,7 +7,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.Loader;
+import android.content.res.ColorStateList;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -70,9 +72,9 @@ public class ArticleListActivity extends ActionBarActivity implements LoaderMana
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_list);
 
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+/*        mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        final View toolbarContainerView = findViewById(R.id.toolbar_container);
+        final View toolbarContainerView = findViewById(R.id.toolbar_container);*/
         mMainContainer = (CoordinatorLayout) findViewById(R.id.main_coordinator_layout);
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
@@ -118,6 +120,12 @@ public class ArticleListActivity extends ActionBarActivity implements LoaderMana
         }
 
         setTextFadeThread();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().getDecorView().setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
+                            View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+        }
     }
 
     private void setTextFadeThread(){
@@ -364,21 +372,11 @@ public class ArticleListActivity extends ActionBarActivity implements LoaderMana
                 });
                 holder.pagesview.addView(mPageText);
             }
-
             holder.libraryfabbutton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     addStoryToLibrary();
                     Snackbar addToLibrarySnackbar = Snackbar.make(mMainContainer,getString(R.string.story_added_to_library),Snackbar.LENGTH_LONG);
-                    addToLibrarySnackbar.show();
-                }
-            });
-
-            holder.facebooklikebutton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    addStoryToLibrary();
-                    Snackbar addToLibrarySnackbar = Snackbar.make(mMainContainer,getString(R.string.newspaper_shared),Snackbar.LENGTH_LONG);
                     addToLibrarySnackbar.show();
                 }
             });
@@ -397,7 +395,6 @@ public class ArticleListActivity extends ActionBarActivity implements LoaderMana
         public TextView bodyView;
         public LinearLayout pagesview;
         public FloatingActionButton libraryfabbutton;
-        public FloatingActionButton facebooklikebutton;
 
         public ViewHolder(final View view) {
             super(view);
@@ -407,7 +404,6 @@ public class ArticleListActivity extends ActionBarActivity implements LoaderMana
             bodyView = (TextView) view.findViewById(R.id.article_body);
             pagesview = (LinearLayout) view.findViewById(R.id.newspaper_clip_pages);
             libraryfabbutton = (FloatingActionButton) view.findViewById(R.id.add_to_lib_fab);
-            facebooklikebutton = (FloatingActionButton) view.findViewById(R.id.face_book_like_button);
         }
     }
 }

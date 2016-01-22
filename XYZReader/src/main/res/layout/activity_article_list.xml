@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/logo"
                 android:fitsSystemWindows="true"
-                app:layout_collapseMode="parallax"/>
+                app:layout_collapseMode="parallax" />
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"

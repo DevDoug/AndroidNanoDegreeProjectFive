@@ -72,11 +72,11 @@ public class ArticleListActivity extends ActionBarActivity implements LoaderMana
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_list);
 
-/*        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        final View toolbarContainerView = findViewById(R.id.toolbar_container);*/
+        final View toolbarContainerView = findViewById(R.id.toolbar_container);
         mMainContainer = (CoordinatorLayout) findViewById(R.id.main_coordinator_layout);
-        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
+        //mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
         fadeIn.setDuration(2000);
@@ -204,7 +204,8 @@ public class ArticleListActivity extends ActionBarActivity implements LoaderMana
     };
 
     private void updateRefreshingUI() {
-        mSwipeRefreshLayout.setRefreshing(mIsRefreshing);
+        //mSwipeRefreshLayout.setRefreshing(mIsRefreshing);
+        mRecyclerView.invalidate();
     }
 
     @Override

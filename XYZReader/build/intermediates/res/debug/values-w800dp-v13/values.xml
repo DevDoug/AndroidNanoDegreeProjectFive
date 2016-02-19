@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/E:/Projects/NanoDegreeProjectFive/XYZReader/src/main/res/values-w800dp/macro_layout.xml -->
+    <!-- From: file:/E:/Projects/AndroidNanoDegreeProjectFive/XYZReader/src/main/res/values-w800dp/macro_layout.xml -->
     <eat-comment/>
     <dimen name="detail_card_max_width">704dp</dimen>
     <dimen name="list_side_margin">64dp</dimen>

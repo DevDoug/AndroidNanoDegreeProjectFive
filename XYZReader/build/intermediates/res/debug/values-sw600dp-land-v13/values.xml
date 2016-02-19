@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/E:/Projects/NanoDegreeProjectFive/XYZReader/src/main/res/values-sw600dp-land/macro_layout.xml -->
+    <!-- From: file:/E:/Projects/AndroidNanoDegreeProjectFive/XYZReader/src/main/res/values-sw600dp-land/macro_layout.xml -->
     <eat-comment/>
     <bool name="detail_is_card">true</bool>
     <dimen name="detail_card_top_margin">256dp</dimen>

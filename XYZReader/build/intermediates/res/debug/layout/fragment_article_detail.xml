@@ -108,4 +108,4 @@
         android:contentDescription="@string/action_share" />
 
 </com.example.xyzreader.ui.DrawInsetsFrameLayout>
-<!-- From: file:/E:/Projects/NanoDegreeProjectFive/XYZReader/src/main/res/layout/fragment_article_detail.xml -->
+<!-- From: file:/E:/Projects/AndroidNanoDegreeProjectFive/XYZReader/src/main/res/layout/fragment_article_detail.xml -->
